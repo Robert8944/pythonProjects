@@ -48,9 +48,16 @@ def rrefHelper(matrix):
 	for colNum in range(0,len(matrix[0])):
 		for rowNum in range(0,len(matrix)):
 			if(row[0] != 0):
-				pivot
-				
-
+				pivotRow = rowNum
+				pivotCol = colNum
+	if (pivotRow != 0):
+		rowInterchange(
+	
+####
+# 
+# display the matrix
+# 
+####
 def dispMatrix():
 	longest = 0
 	for row in am:
@@ -64,13 +71,25 @@ def dispMatrix():
 				print(" ",end="")
 			print(str(num)+" ",end="")
 		print("|")
-
+####
+# 
+# interchange two of the rows numbers starting at 0
+# 
+####
 def rowInterchange(r1,r2):
 	am[r1-1],am[r2-1] = am[r2-1],am[r1-1]
-
+####
+# 
+# s
+# 
+####
 def rowScale(r,s):
 	am[r-1] = [num*s for num in am[r-1]]
-
+####
+# 
+# 
+# 
+####
 def rowReplace(r1,r2,s):
 	am[r1-1] = [am[r1-1][i] + am[r2-1][i]*s for i in range(0,len(am[r1-1]))]
 
