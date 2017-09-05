@@ -42,16 +42,34 @@ def rref():
 	rrefHelper(submatrix)
 
 def rrefHelper(matrix):
+	#check if submatrix is done
+	if(len(matrix)==1):
+		#do second half of steps
+		return
 	#find leftmost non-zero entry
 	pivotCol = 0
 	pivotRow = 0
 	for colNum in range(0,len(matrix[0])):
 		for rowNum in range(0,len(matrix)):
-			if(row[0] != 0):
+			if(matrix[rowNum][0] != 0):
 				pivotRow = rowNum
 				pivotCol = colNum
+	#if necessary interchange rows to make the pivot position in the top row
 	if (pivotRow != 0):
-		rowInterchange(
+		rowInterchange(1,pivotRow+1)
+	#use elementary row operations to create zeros in the coloum entries below pivot
+	for rowNum in range(1,len(matrix)):
+		if(matrix[rowNum][0] != 0):
+			rowReplace(rowNum+1,1,-1*matrix[rowNum][0]/matrix[0][0])
+	#repeat steps above for submatrix
+	submatrix = [[]]
+	for rowNum in range(1,len(matrix)):
+		row = []
+		for colNum in range(1,len(matrix[0])):
+			row.append(matrix[rowNum][colNum])
+		submatrix.append(row)
+	rreftHelper(submatrix)
+
 	
 ####
 # 
@@ -73,21 +91,23 @@ def dispMatrix():
 		print("|")
 ####
 # 
-# interchange two of the rows numbers starting at 0
+# interchange two of the rows. row inputs expect numbering starting at 1
 # 
 ####
 def rowInterchange(r1,r2):
 	am[r1-1],am[r2-1] = am[r2-1],am[r1-1]
 ####
 # 
-# s
+# scale the row by the scale factor. row inputs expect numbering starting at 1
 # 
 ####
 def rowScale(r,s):
 	am[r-1] = [num*s for num in am[r-1]]
 ####
 # 
-# 
+# scale the second row by the scale factor and add it the the first row.
+# the first row will be replaced with the result
+# row inputs expect numbering starting at 1
 # 
 ####
 def rowReplace(r1,r2,s):
